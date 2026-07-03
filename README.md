@@ -1,4 +1,4 @@
-# 📰 TruthLens AI
+#                                                             📰 TruthLens AI
 
 <div align="center">
 
