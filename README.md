@@ -1,153 +1,133 @@
-# 📰 TruthLens AI - Fake News Detection using Machine Learning
+# 🔍 TruthLens AI
+
+**Fake News Detection using NLP & Machine Learning**
+
+A machine learning web app that analyzes news article text and classifies it as **Reliable** or **Unreliable**, using NLP preprocessing (stemming + stopword removal), TF-IDF vectorization, and a trained classifier — deployed as an interactive Streamlit app.
+
+---
 
 ## 📌 Overview
 
-TruthLens AI is a Machine Learning project that automatically detects whether a news article is **Real** or **Fake** using Natural Language Processing (NLP).
-
-The system preprocesses news text, converts it into numerical features using TF-IDF Vectorization, trains a classification model, and predicts the authenticity of unseen news articles with high accuracy.
-
-This project demonstrates practical applications of Machine Learning, Text Classification, Data Preprocessing, and NLP.
+TruthLens AI tackles the growing problem of misinformation by giving users a quick, automated way to check the credibility of news content. Paste any news article text into the app, and the model predicts whether it's likely to be genuine or fabricated — based on patterns learned from a labeled dataset of over 20,000 real and fake news articles.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-- Detects Fake and Real News
-- NLP-based text preprocessing
-- TF-IDF feature extraction
-- Multiple ML algorithms comparison
-- Model performance evaluation
-- Save and load trained model
-- Predict custom news articles
-- Clean and modular codebase
+- 📝 **Text-based prediction** — paste any news article content and get an instant classification
+- 🧹 **NLP preprocessing pipeline** — regex cleaning, lowercasing, stopword removal, and Porter stemming
+- 📊 **TF-IDF vectorization** — converts raw text into meaningful numerical features
+- 🌳 **Decision Tree classifier** — trained and evaluated on a held-out test set
+- 💻 **Simple Streamlit UI** — clean, single-page web interface for real-time predictions
+- 📦 **Pre-trained model included** — `model.pkl` and `vector.pkl` ready for inference, no retraining required
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
-**Programming Language**
-
-- Python
-
-**Libraries**
-
-- Pandas
-- NumPy
-- Scikit-learn
-- NLTK
-- Matplotlib
-- Seaborn
-- Joblib
+| Layer | Technology |
+|-------|-----------|
+| **Language** | Python 3.8+ |
+| **NLP** | NLTK (stopwords, PorterStemmer), Regex |
+| **Feature Extraction** | scikit-learn `TfidfVectorizer` |
+| **Model** | scikit-learn `DecisionTreeClassifier` |
+| **Web App** | Streamlit |
+| **Serialization** | Pickle |
 
 ---
 
-## 📊 Workflow
+## 🗂️ Repository Structure
 
-1. Load Dataset
-2. Data Cleaning
-3. Text Preprocessing
-4. Stopword Removal
-5. Stemming/Lemmatization
-6. TF-IDF Vectorization
-7. Train-Test Split
-8. Model Training
-9. Performance Evaluation
-10. Prediction on New Articles
+```
+├── Model_Training.ipynb   # Data exploration, preprocessing, training & evaluation
+├── app.py                 # Streamlit web app for real-time predictions
+├── model.pkl              # Trained Decision Tree classifier
+├── vector.pkl             # Fitted TF-IDF vectorizer
+├── README.md               # Project documentation (this file)
+```
 
 ---
 
-## 🧠 Machine Learning Pipeline
+## 📊 Dataset & Model Details
 
-### Data Preprocessing
-
-- Remove punctuation
-- Convert text to lowercase
-- Remove stopwords
-- Tokenization
-- Stemming
-
-### Feature Engineering
-
-TF-IDF Vectorization transforms textual news into numerical vectors suitable for Machine Learning.
-
-### Model Training
-
-The following algorithms can be used:
-
-- Logistic Regression
-- Passive Aggressive Classifier
-- Multinomial Naive Bayes
-- Random Forest
-- Support Vector Machine
+- **Dataset size:** 20,800 labeled news articles (`id`, `title`, `author`, `text`, `label`)
+- **Label:** `0` = Reliable, `1` = Unreliable
+- **Preprocessing:**
+  - Removed non-alphabetic characters via regex
+  - Lowercased and tokenized text
+  - Removed English stopwords (NLTK)
+  - Applied Porter stemming to normalize word forms
+- **Feature extraction:** TF-IDF vectorization on cleaned article text
+- **Train/test split:** 80% / 20%
+- **Model:** Decision Tree Classifier
+- **Test accuracy:** **~88.4%**
 
 ---
 
-## 📈 Evaluation Metrics
+## 🚀 Getting Started
 
-The model is evaluated using:
+### Prerequisites
 
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- Confusion Matrix
+- Python 3.8+
+- pip
 
----
+### Installation
 
-## 📊 Dataset
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/truthlens-ai-fake-news-detector.git
+cd truthlens-ai-fake-news-detector
 
-The project uses a publicly available Fake and Real News dataset consisting of thousands of labeled news articles.
+# Install dependencies
+pip install streamlit scikit-learn nltk pandas
 
-Dataset includes:
+# Download NLTK stopwords (one-time)
+python -c "import nltk; nltk.download('stopwords')"
+```
 
-- News Title
-- News Text
-- Label (Real/Fake)
+### Run the App
 
----
+```bash
+streamlit run app.py
+```
 
-## 🎯 Future Improvements
-
-- Deep Learning (LSTM)
-- BERT-based Fake News Detection
-- Explainable AI using SHAP
-- Streamlit Web Application
-- Real-time News URL Verification
-- News Source Credibility Analysis
-- Multi-language Support
-- REST API Deployment
+The app will open in your browser at `http://localhost:8501`. Paste in any news article text and click **Predict** to see whether it's classified as Reliable or Unreliable.
 
 ---
 
-## 📚 Learning Outcomes
+## 🧪 Retraining the Model
 
-This project demonstrates:
+To retrain on your own dataset or experiment with different models:
 
-- Natural Language Processing
-- Text Classification
-- Feature Engineering
-- Machine Learning Pipeline
-- Model Evaluation
-- Data Cleaning
-- Python Development
+1. Open `Model_Training.ipynb` in Jupyter
+2. Replace `train.csv` with your labeled dataset (`text`, `label` columns required)
+3. Run all cells — this regenerates `model.pkl` and `vector.pkl`
+4. Restart the Streamlit app to use the updated model
 
 ---
 
-## 🤝 Contributing
+## 📈 Future Enhancements
 
-Contributions are welcome.
-
-1. Fork the repository
-2. Create a new branch
-3. Commit your changes
-4. Submit a Pull Request
+- [ ] Experiment with stronger models (Random Forest, XGBoost, Logistic Regression) and compare accuracy
+- [ ] Add confidence/probability scores alongside predictions
+- [ ] Incorporate title and author metadata as additional features
+- [ ] Add a REST API endpoint (FastAPI/Flask) for programmatic access
+- [ ] Deploy publicly via Streamlit Community Cloud or Docker
+- [ ] Add unit tests and a CI pipeline
 
 ---
 
+## ⚠️ Limitations
 
-## 👨‍💻 Author
+This model is trained on a specific historical news dataset and reflects the linguistic patterns present in that data. It is intended as a **learning/demo project** and should not be used as a sole source of truth for verifying real-world news — always cross-check with trusted fact-checking sources.
 
+---
+
+## 👤 Author
 Shubham Choubey
-B.E. Information Technology Student
 
-Interested in Machine Learning, Data Analytics.
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
